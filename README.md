@@ -1,1 +1,1 @@
-# KotlinPractice
+Study Kotlin in Android Studio
