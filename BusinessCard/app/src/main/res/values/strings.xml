@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">BusinessCard</string>
+    <string name="name">Inari Goro</string>
+    <string name="title">Student Developer</string>
+    <string name="phoneNumber">+81 (000) 000 0000</string>
+    <string name="id">\@kokoa454</string>
+    <string name="email">inariGoro@aiueo.co.jp</string>
+</resources>
