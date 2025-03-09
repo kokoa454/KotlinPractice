@@ -19,6 +19,10 @@ import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -48,6 +52,30 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun LemonadeTextAndImage(modifier: Modifier = Modifier) {
+    var currentOrder by remember { mutableIntStateOf(0) }
+    var randomNum by remember { mutableIntStateOf((2..4).random()) }
+
+    val imageResource = when(currentOrder){
+        0 -> R.drawable.lemon_tree
+        1 -> R.drawable.lemon_squeeze
+        2 -> R.drawable.lemon_drink
+        else -> R.drawable.lemon_restart
+    }
+
+    val textResource = when(currentOrder){
+        0 -> R.string.first
+        1 -> R.string.second
+        2 -> R.string.third
+        else -> R.string.forth
+    }
+
+    val descResource = when(currentOrder){
+        0 -> R.string.firstDesc
+        1 -> R.string.secondDesc
+        2 -> R.string.thirdDesc
+        else -> R.string.forthDesc
+    }
+
     Column(
         modifier = modifier.fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
@@ -72,7 +100,18 @@ fun LemonadeTextAndImage(modifier: Modifier = Modifier) {
 
         ) {
             Button(
-                onClick = {},
+                onClick = {
+                    if(currentOrder in 0..2){
+                        if(currentOrder == 1 && randomNum > 1){
+                            randomNum--
+                        } else {
+                            currentOrder++
+                        }
+                    } else {
+                        currentOrder = 0
+                        randomNum = (2..4).random()
+                    }
+                },
                 modifier = Modifier
                     .height(200.dp)
                     .width(200.dp),
@@ -83,12 +122,12 @@ fun LemonadeTextAndImage(modifier: Modifier = Modifier) {
                 shape = RoundedCornerShape(20.dp)
                 ) {
                 Image(
-                    painter = painterResource(R.drawable.lemon_tree),
-                    contentDescription = null
+                    painter = painterResource(imageResource),
+                    contentDescription = stringResource(descResource)
                 )
             }
             Text(
-                text = stringResource(R.string.first),
+                text = stringResource(textResource),
                 modifier = Modifier.padding(top = 24.dp)
             )
         }

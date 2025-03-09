@@ -4,4 +4,9 @@
     <string name="second">Keep tapping the lemon to squeeze it</string>
     <string name="third">Tap the lemonade to drink it</string>
     <string name="forth">Tap the empty glass to start again</string>
+
+    <string name="firstDesc">Lemon tree</string>
+    <string name="secondDesc">Lemon</string>
+    <string name="thirdDesc">Glass of lemonade</string>
+    <string name="forthDesc">Empty glass</string>
 </resources>
