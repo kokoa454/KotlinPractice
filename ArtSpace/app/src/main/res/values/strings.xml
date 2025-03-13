@@ -1,0 +1,17 @@
+<resources>
+    <string name="app_name">ArtSpace</string>
+    <string name="steak">Rib eye steak at Torro</string>
+    <string name="steak_artist">Takahiro Suzuki (2023)</string>
+    <string name="napoleon">Napoleon at Torro</string>
+    <string name="napoleon_artist">Takahiro Suzuki (2023)</string>
+    <string name="whitehouse">The White House</string>
+    <string name="whitehouse_artist">Takahiro Suzuki (2023)</string>
+    <string name="national_theater">The national theater</string>
+    <string name="national_theater_artist">Takahiro Suzuki (2021)</string>
+    <string name="osh_bazar">The Osh bazar</string>
+    <string name="osh_bazar_artist">Takahiro Suzuki (2021)</string>
+    <string name="fake_kumamon">Kyrgyz Kumamon</string>
+    <string name="fake_kumamon_artist">Takahiro Suzuki (2023)</string>
+    <string name="bishkek_meltdown">Bishkek Meltdown</string>
+    <string name="bishkek_meltdown_artist">Takahiro Suzuki (2023)</string>
+</resources>
