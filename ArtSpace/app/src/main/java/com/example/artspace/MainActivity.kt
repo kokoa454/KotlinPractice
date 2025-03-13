@@ -25,6 +25,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
@@ -108,69 +110,147 @@ fun ArtContent(modifier: Modifier = Modifier) {
 
     val bitmap = remember(imageResource) { loadBitmapWithRotation(context, imageResource) }
 
-    Column(
-        modifier = modifier.fillMaxSize(),
-        horizontalAlignment = Alignment.CenterHorizontally,
-        verticalArrangement = Arrangement.Center
-    ) {
-        Box(
-            modifier = Modifier
-                .padding(top = 20.dp, bottom = 40.dp, start = 20.dp, end = 20.dp)
-                .shadow(elevation = 20.dp)
-                .background(Color.White)
-        ){
-            Image(
-                bitmap = bitmap.asImageBitmap(),
-                contentDescription = null,
-                modifier = Modifier.padding(24.dp)
-            )
-        }
+    val isLandscape = LocalContext.current.resources.configuration.orientation == android.content.res.Configuration.ORIENTATION_LANDSCAPE
+
+    if (isLandscape) {
+        // layout for landscape
         Column(
-            modifier = Modifier
-                .background(Color(0xFFD2D0E8))
-                .padding(12.dp)
-                .clip(RoundedCornerShape(12.dp))
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
         ) {
-            Text(
-                text = stringResource(titleResource),
-                fontSize = 20.sp,
-                fontWeight = FontWeight.Bold
-            )
-            Text(
-                text = stringResource(artistResource),
-                fontSize = 12.sp,
-                modifier = Modifier.padding(top = 4.dp)
-            )
-        }
-        Row(
-            modifier = Modifier.padding(top = 80.dp)
-        ) {
-            Button(
-                modifier = Modifier.width(120.dp),
-                onClick = {
-                if(currentOrder in 1..6){
-                    currentOrder--
-                } else {
-                    Toast.makeText(context, "前の写真はありません", Toast.LENGTH_SHORT).show()
-                }
-            }) {
-                Text(
-                    text = "Previous"
+            Box(
+                modifier = Modifier
+                    .padding(top = 20.dp, bottom = 40.dp, start = 20.dp, end = 20.dp)
+                    .shadow(elevation = 20.dp)
+                    .background(Color.White)
+                    .sizeIn(maxHeight = 500.dp)
+            ) {
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier.padding(24.dp)
                 )
             }
-            Spacer(modifier = Modifier.padding(28.dp))
-            Button(
-                modifier = Modifier.width(120.dp),
-                onClick = {
-                if(currentOrder in 0..5){
-                    currentOrder++
-                } else {
-                    Toast.makeText(context, "後の写真はありません", Toast.LENGTH_SHORT).show()
-                }
-            }) {
+            Column(
+                modifier = Modifier
+                    .background(Color(0xFFD2D0E8))
+                    .padding(12.dp)
+                    .clip(RoundedCornerShape(12.dp))
+            ) {
                 Text(
-                    text = "Next"
+                    text = stringResource(titleResource),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
                 )
+                Text(
+                    text = stringResource(artistResource),
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(start = 40.dp, end = 40.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
+            ) {
+                Button(
+                    modifier = Modifier
+                        .width(120.dp),
+                    onClick = {
+                        if (currentOrder in 1..6) {
+                            currentOrder--
+                        } else {
+                            Toast.makeText(context, "前の写真はありません", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                ) {
+                    Text("Previous")
+                }
+                Button(
+                    modifier = Modifier.width(120.dp),
+                    onClick = {
+                        if (currentOrder in 0..5) {
+                            currentOrder++
+                        } else {
+                            Toast.makeText(context, "後の写真はありません", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                ) {
+                    Text("Next")
+                }
+            }
+        }
+    } else {
+        // layout for portrait
+        Column(
+            modifier = modifier.fillMaxSize(),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.Center
+        ) {
+            Box(
+                modifier = Modifier
+                    .padding(top = 20.dp, bottom = 40.dp, start = 20.dp, end = 20.dp)
+                    .shadow(elevation = 20.dp)
+                    .background(Color.White)
+                    .sizeIn(maxHeight = 800.dp)
+            ) {
+                Image(
+                    bitmap = bitmap.asImageBitmap(),
+                    contentDescription = null,
+                    modifier = Modifier.padding(24.dp)
+                )
+            }
+            Column(
+                modifier = Modifier
+                    .background(Color(0xFFD2D0E8))
+                    .padding(12.dp)
+                    .clip(RoundedCornerShape(12.dp))
+            ) {
+                Text(
+                    text = stringResource(titleResource),
+                    fontSize = 20.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = stringResource(artistResource),
+                    fontSize = 12.sp,
+                    modifier = Modifier.padding(top = 4.dp)
+                )
+            }
+            Row(
+                modifier = Modifier.padding(top = 80.dp)
+            ) {
+                Button(
+                    modifier = Modifier.width(120.dp),
+                    onClick = {
+                        if (currentOrder in 1..6) {
+                            currentOrder--
+                        } else {
+                            Toast.makeText(context, "前の写真はありません", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                ) {
+                    Text("Previous")
+                }
+                Spacer(modifier = Modifier.padding(28.dp))
+                Button(
+                    modifier = Modifier.width(120.dp),
+                    onClick = {
+                        if (currentOrder in 0..5) {
+                            currentOrder++
+                        } else {
+                            Toast.makeText(context, "後の写真はありません", Toast.LENGTH_SHORT)
+                                .show()
+                        }
+                    }
+                ) {
+                    Text("Next")
+                }
             }
         }
     }
