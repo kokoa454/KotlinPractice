@@ -20,11 +20,17 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.Matrix
+import android.widget.Toast
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.mutableIntStateOf
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.shadow
@@ -67,7 +73,7 @@ fun loadBitmapWithRotation(context: Context, resId: Int): Bitmap {
 
 @Composable
 fun ArtContent(modifier: Modifier = Modifier) {
-    val currentOrder by remember { mutableIntStateOf(0) }
+    var currentOrder by remember { mutableIntStateOf(0) }
     val context = LocalContext.current
 
     val imageResource = when(currentOrder){
@@ -135,6 +141,37 @@ fun ArtContent(modifier: Modifier = Modifier) {
                 fontSize = 12.sp,
                 modifier = Modifier.padding(top = 4.dp)
             )
+        }
+        Row(
+            modifier = Modifier.padding(top = 80.dp)
+        ) {
+            Button(
+                modifier = Modifier.width(120.dp),
+                onClick = {
+                if(currentOrder in 1..6){
+                    currentOrder--
+                } else {
+                    Toast.makeText(context, "前の写真はありません", Toast.LENGTH_SHORT).show()
+                }
+            }) {
+                Text(
+                    text = "Previous"
+                )
+            }
+            Spacer(modifier = Modifier.padding(28.dp))
+            Button(
+                modifier = Modifier.width(120.dp),
+                onClick = {
+                if(currentOrder in 0..5){
+                    currentOrder++
+                } else {
+                    Toast.makeText(context, "後の写真はありません", Toast.LENGTH_SHORT).show()
+                }
+            }) {
+                Text(
+                    text = "Next"
+                )
+            }
         }
     }
 }
