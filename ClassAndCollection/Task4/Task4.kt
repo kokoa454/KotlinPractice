@@ -22,7 +22,7 @@ fun main(){
 }
 
 fun printShortTasks(events: List<Event>) {
-    val shortEvent = events.filter { it.durationInMinutes < 30 }
+    val shortEvent = events.filter { it.durationInMinutes < 60 }
     
     println("You have ${shortEvent.size} short events")
 }
