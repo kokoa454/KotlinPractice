@@ -1,8 +1,8 @@
 class Event(
-    title: String,
-    description: String? = null,
-    daypart: Daypart, 
-    durationInMinutes: Int
+    val title: String,
+    val description: String? = null,
+    val daypart: Daypart, 
+    val durationInMinutes: Int
 )
 
 enum class Daypart {
