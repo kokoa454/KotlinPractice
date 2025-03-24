@@ -1,3 +1,95 @@
 <resources>
     <string name="app_name">ThirtyDays</string>
+
+    <string name="day">Day</string>
+
+    <string name="wellness_1">毎日のウォーキング</string>
+    <string name="wellness_1_description">短い散歩でも心と体に良い影響を与えます。毎日20分以上のウォーキングを行うことで、ストレスを軽減し、心身の健康を促進できます。</string>
+
+    <string name="wellness_2">瞑想の実践</string>
+    <string name="wellness_2_description">瞑想は、リラックスと集中力向上に役立ちます。毎日5分でも瞑想をすることで、心の安定とストレス解消が期待できます。</string>
+
+    <string name="wellness_3">水分補給</string>
+    <string name="wellness_3_description">適切な水分補給は体の調子を整えるために重要です。毎日8杯の水を飲むことを目標にして、健康的な習慣を作りましょう。</string>
+
+    <string name="wellness_4">新しいレシピに挑戦</string>
+    <string name="wellness_4_description">健康的な食事を楽しむために、毎週新しいレシピを試してみましょう。自分の料理スキルを向上させるだけでなく、バランスの取れた食生活を実現できます。</string>
+
+    <string name="wellness_5">スクリーンタイムの制限</string>
+    <string name="wellness_5_description">デジタルデバイスを使う時間を減らすことで、目の疲れや睡眠の質の改善が期待できます。1日1時間のスクリーンタイム制限を試してみましょう。</string>
+
+    <string name="wellness_6">読書の時間を持つ</string>
+    <string name="wellness_6_description">日々の忙しさから少し離れて、毎日15分でも読書を楽しみましょう。本を読むことは心のリフレッシュにもつながります。</string>
+
+    <string name="wellness_7">ヨガの導入</string>
+    <string name="wellness_7_description">ヨガは身体的な柔軟性を高め、心を落ち着かせる効果があります。週に数回、簡単なヨガのポーズを取り入れて、体をリフレッシュしましょう。</string>
+
+    <string name="wellness_8">感謝日記</string>
+    <string name="wellness_8_description">毎日感謝していることを3つ書き出すことで、前向きな思考が養われます。感謝の気持ちを記録することで、幸せを感じる時間が増えるでしょう。</string>
+
+    <string name="wellness_9">十分な睡眠</string>
+    <string name="wellness_9_description">健康を保つためには十分な睡眠が不可欠です。毎晩7～8時間の睡眠を確保し、体調を整えましょう。</string>
+
+    <string name="wellness_10">デジタルデトックスデー</string>
+    <string name="wellness_10_description">1日デジタル機器から離れて過ごすことで、リフレッシュ効果が得られます。毎週1日のデジタルデトックスを実践してみましょう。</string>
+
+    <string name="wellness_11">自然と触れ合う</string>
+    <string name="wellness_11_description">自然の中で過ごすことはリラクゼーション効果が高く、心身の健康に良い影響を与えます。公園や自然散策を取り入れましょう。</string>
+
+    <string name="wellness_12">深呼吸エクササイズ</string>
+    <string name="wellness_12_description">深呼吸はストレスを軽減し、リラックスするために効果的です。1日の中で数回深呼吸を行うことを習慣化しましょう。</string>
+
+    <string name="wellness_13">新しい趣味を始める</string>
+    <string name="wellness_13_description">新しい趣味を始めることで、脳が活性化し、精神的にもリフレッシュできます。音楽やアート、手作りなど、自分の興味に合った活動を始めましょう。</string>
+
+    <string name="wellness_14">ソーシャルコネクション</string>
+    <string name="wellness_14_description">友人や家族との時間を大切にすることで、孤独感を減らし、精神的な安定を保つことができます。質の高いコミュニケーションを心がけましょう。</string>
+
+    <string name="wellness_15">マインドフルな食事</string>
+    <string name="wellness_15_description">食事中に意識的に味わいながら食べることで、過食を防ぎ、食事を楽しむことができます。食事に集中することで、心の落ち着きも得られます。</string>
+
+    <string name="wellness_16">ポジティブなアファメーション</string>
+    <string name="wellness_16_description">ポジティブな自己肯定感を持つために、毎日アファメーションを行いましょう。自分を励ます言葉を繰り返すことで、前向きな気持ちが育まれます。</string>
+
+    <string name="wellness_17">音楽を楽しむ</string>
+    <string name="wellness_17_description">音楽は気分を高め、リラックスさせる力を持っています。自分の好きな音楽を聴く時間を持つことで、心のリフレッシュが可能です。</string>
+
+    <string name="wellness_18">整理整頓</string>
+    <string name="wellness_18_description">生活空間を整えることで、心もスッキリします。毎日少しずつ片付けて、整理整頓された空間で気持ちよく過ごしましょう。</string>
+
+    <string name="wellness_19">新しいスキルの習得</string>
+    <string name="wellness_19_description">学び続けることで脳が活性化し、自己成長を促進します。オンラインコースやワークショップに参加して、新しいスキルを身につけましょう。</string>
+
+    <string name="wellness_20">セルフケアデー</string>
+    <string name="wellness_20_description">自分を大切にする時間を確保しましょう。セルフケアデーを設けて、リラックスしたり、自分の好きなことをして、心身のリフレッシュを図りましょう。</string>
+
+    <string name="wellness_21">笑う時間を持つ</string>
+    <string name="wellness_21_description">笑うことは、ストレスを減らし、気分を明るくしてくれます。コメディ映画や楽しい出来事を楽しんで、笑顔の時間を増やしましょう。</string>
+
+    <string name="wellness_22">ボランティア活動</string>
+    <string name="wellness_22_description">社会貢献をすることで、自己満足感とともに他者との繋がりが得られます。地域の活動に参加して、ポジティブな影響を広げましょう。</string>
+
+    <string name="wellness_23">ビジョンボードを作成する</string>
+    <string name="wellness_23_description">目標や夢を視覚化することで、モチベーションが高まります。自分の夢や目標をビジョンボードに書き出して、常に意識するようにしましょう。</string>
+
+    <string name="wellness_24">ポジティブな人々と過ごす</string>
+    <string name="wellness_24_description">ポジティブなエネルギーを持つ人々と時間を過ごすことで、自分の気持ちも前向きになります。良い影響を与え合う関係を築きましょう。</string>
+
+    <string name="wellness_25">セルフマッサージ</string>
+    <string name="wellness_25_description">疲れた体を癒すために、セルフマッサージを取り入れましょう。リラックス効果があり、血行も良くなります。</string>
+
+    <string name="wellness_26">日光浴</string>
+    <string name="wellness_26_description">適度な日光を浴びることで、ビタミンDが生成され、気分も向上します。晴れた日に外で少しだけ日光浴を楽しみましょう。</string>
+
+    <string name="wellness_27">カフェインの摂取を控える</string>
+    <string name="wellness_27_description">カフェインの摂取を減らすことで、睡眠の質が改善され、落ち着いた気分が保てます。午後のカフェインは控えめにしましょう。</string>
+
+    <string name="wellness_28">ポジティブなニュースを読む</string>
+    <string name="wellness_28_description">毎日良いニュースに触れることで、ネガティブな感情を減らし、心の平穏を保つことができます。ポジティブな出来事に焦点を当てましょう。</string>
+
+    <string name="wellness_29">セルフリフレクション</string>
+    <string name="wellness_29_description">自分を振り返る時間を持つことで、自己理解が深まります。毎晩、今日1日を振り返り、学びや改善点を見つけてみましょう。</string>
+
+    <string name="wellness_30">プロフェッショナルな助けを求める</string>
+    <string name="wellness_30_description">必要に応じてカウンセリングやセラピーを受けることは、精神的な健康を保つために非常に重要です。心のサポートを求めることを躊躇しないようにしましょう。</string>
 </resources>
