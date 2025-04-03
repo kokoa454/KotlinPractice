@@ -21,7 +21,7 @@ plugins {
 
 android {
     namespace = "com.example.reply"
-    compileSdk = 35
+    compileSdk = 34
 
     defaultConfig {
         applicationId = "com.example.reply"
@@ -67,24 +67,22 @@ android {
 }
 
 dependencies {
-    implementation(platform("androidx.compose:compose-bom:2025.03.01"))
-    implementation("androidx.activity:activity-compose:1.10.1")
+    implementation(platform("androidx.compose:compose-bom:2024.03.00"))
+    implementation("androidx.activity:activity-compose:1.8.2")
     implementation("androidx.compose.material:material-icons-extended")
     implementation("androidx.compose.material3:material3")
+    implementation("androidx.compose.material3:material3-window-size-class")
     implementation("androidx.compose.ui:ui")
     implementation("androidx.compose.ui:ui-graphics")
     implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.core:core-ktx:1.15.0")
-    //noinspection GradleDependency
+    implementation("androidx.core:core-ktx:1.12.0")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:${rootProject.extra["lifecycle_version"]}")
-    //noinspection GradleDependency
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:${rootProject.extra["lifecycle_version"]}")
-    implementation("androidx.compose.material3:material3-window-size-class-android:1.3.1")
 
-    androidTestImplementation(platform("androidx.compose:compose-bom:2025.03.01"))
+    androidTestImplementation(platform("androidx.compose:compose-bom:2024.03.00"))
     androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.6.1")
-    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    androidTestImplementation("androidx.test.ext:junit:1.1.5")
     testImplementation("junit:junit:4.13.2")
 
     debugImplementation("androidx.compose.ui:ui-test-manifest")

@@ -29,11 +29,11 @@ fun ReplyApp(
     windowSize: WindowWidthSizeClass,
     modifier: Modifier = Modifier,
 ) {
+    val navigationType: ReplyNavigationType
     val viewModel: ReplyViewModel = viewModel()
     val replyUiState = viewModel.uiState.collectAsState().value
-    var navigationType = ReplyNavigationType.BOTTOM_NAVIGATION
 
-    when(windowSize){
+    when (windowSize) {
         WindowWidthSizeClass.Compact -> {
             navigationType = ReplyNavigationType.BOTTOM_NAVIGATION
         }
@@ -43,8 +43,10 @@ fun ReplyApp(
         WindowWidthSizeClass.Expanded -> {
             navigationType = ReplyNavigationType.PERMANENT_NAVIGATION_DRAWER
         }
+        else -> {
+            navigationType = ReplyNavigationType.BOTTOM_NAVIGATION
+        }
     }
-
     ReplyHomeScreen(
         navigationType = navigationType,
         replyUiState = replyUiState,

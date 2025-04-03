@@ -21,10 +21,13 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.Send
 import androidx.compose.material.icons.filled.Drafts
@@ -38,6 +41,7 @@ import androidx.compose.material3.NavigationDrawerItem
 import androidx.compose.material3.NavigationDrawerItemDefaults
 import androidx.compose.material3.NavigationRail
 import androidx.compose.material3.NavigationRailItem
+import androidx.compose.material3.PermanentDrawerSheet
 import androidx.compose.material3.PermanentNavigationDrawer
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -85,16 +89,25 @@ fun ReplyHomeScreen(
             text = stringResource(id = R.string.tab_spam)
         )
     )
-
-    if(navigationType == ReplyNavigationType.PERMANENT_NAVIGATION_DRAWER && replyUiState.isShowingHomepage){
-        PermanentNavigationDrawer (
+    if (navigationType == ReplyNavigationType.PERMANENT_NAVIGATION_DRAWER && replyUiState.isShowingHomepage) {
+        val navigationDrawerContentDescription = stringResource(R.string.navigation_drawer)
+        PermanentNavigationDrawer(
             drawerContent = {
-                NavigationDrawerContent(
-                    selectedDestination = replyUiState.currentMailbox,
-                    onTabPressed = onTabPressed,
-                    navigationItemContentList = navigationItemContentList
-                )
-            }
+                PermanentDrawerSheet(Modifier.width(dimensionResource(R.dimen.drawer_width)),
+                    drawerContainerColor = MaterialTheme.colorScheme.inverseOnSurface
+                    ) {
+                    NavigationDrawerContent(
+                        selectedDestination = replyUiState.currentMailbox,
+                        onTabPressed = onTabPressed,
+                        navigationItemContentList = navigationItemContentList,
+                        modifier = Modifier
+                            .wrapContentWidth()
+                            .fillMaxHeight()
+                            .padding(dimensionResource(R.dimen.drawer_padding_content))
+                    )
+                }
+            },
+            modifier = Modifier.testTag(navigationDrawerContentDescription)
         ) {
             ReplyAppContent(
                 navigationType = navigationType,
@@ -102,18 +115,18 @@ fun ReplyHomeScreen(
                 onTabPressed = onTabPressed,
                 onEmailCardPressed = onEmailCardPressed,
                 navigationItemContentList = navigationItemContentList,
-                modifier = modifier
+                modifier = modifier,
             )
         }
     } else {
-        if(replyUiState.isShowingHomepage){
+        if (replyUiState.isShowingHomepage) {
             ReplyAppContent(
                 navigationType = navigationType,
                 replyUiState = replyUiState,
                 onTabPressed = onTabPressed,
                 onEmailCardPressed = onEmailCardPressed,
                 navigationItemContentList = navigationItemContentList,
-                modifier = modifier
+                modifier = modifier,
             )
         } else {
             ReplyDetailsScreen(
@@ -134,18 +147,17 @@ private fun ReplyAppContent(
     navigationItemContentList: List<NavigationItemContent>,
     modifier: Modifier = Modifier,
 ) {
-    Box(modifier = modifier) {
-        val navigationRailContentDescription = stringResource(R.string.navigation_rail)
-        Row(
-            modifier = Modifier.fillMaxSize()
-        ) {
-            AnimatedVisibility(visible = true) {
+    Box(modifier = modifier)
+        
+    {
+        Row(modifier = Modifier.fillMaxSize()) {
+            AnimatedVisibility(visible = navigationType == ReplyNavigationType.NAVIGATION_RAIL) {
+                val navigationRailContentDescription = stringResource(R.string.navigation_rail)
                 ReplyNavigationRail(
                     currentTab = replyUiState.currentMailbox,
                     onTabPressed = onTabPressed,
                     navigationItemContentList = navigationItemContentList,
-                    modifier = Modifier
-                        .testTag(navigationRailContentDescription)
+                    modifier = Modifier.testTag(navigationRailContentDescription)
                 )
             }
             Column(
@@ -156,13 +168,14 @@ private fun ReplyAppContent(
                 ReplyListOnlyContent(
                     replyUiState = replyUiState,
                     onEmailCardPressed = onEmailCardPressed,
-                    modifier = Modifier.weight(1f)
-                        .padding(
-                            horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding)
-                        )
+                    modifier = Modifier
+                        .weight(1f)
+                        .padding(horizontal = dimensionResource(R.dimen.email_list_only_horizontal_padding))
+                        .padding(top = dimensionResource(R.dimen.detail_subject_padding_end))
                 )
-                //val bottomNavigationContentDescription = stringResource(R.string.navigation_bottom)
-                AnimatedVisibility(visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION) {
+                AnimatedVisibility(
+                    visible = navigationType == ReplyNavigationType.BOTTOM_NAVIGATION
+                ) {
                     ReplyBottomNavigationBar(
                         currentTab = replyUiState.currentMailbox,
                         onTabPressed = onTabPressed,
