@@ -16,6 +16,7 @@
 
 package com.example.sports.ui
 
+import android.app.Activity
 import androidx.activity.compose.BackHandler
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -56,6 +57,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLayoutDirection
 import androidx.compose.ui.res.dimensionResource
 import androidx.compose.ui.res.painterResource
@@ -342,6 +344,31 @@ private fun SportsDetail(
     }
 }
 
+@Composable
+fun SportsListAndDetail(
+    sports: List<Sport>,
+    onClick: (Sport) -> Unit,
+    selectedSport: Sport,
+    onBackPressed: () -> Unit,
+    modifier: Modifier = Modifier
+){
+    Row(
+        modifier = modifier.padding(dimensionResource(R.dimen.padding_medium))
+    ) {
+        SportsList(
+            sports = sports,
+            onClick = onClick,
+            modifier = Modifier.weight(1f)
+        )
+        SportsDetail(
+            selectedSport = selectedSport,
+            onBackPressed = onBackPressed,
+            contentPadding = PaddingValues(start = dimensionResource(R.dimen.padding_medium)),
+            modifier = Modifier.weight(2f)
+        )
+    }
+}
+
 @Preview
 @Composable
 fun SportsListItemPreview() {
@@ -361,6 +388,21 @@ fun SportsListPreview() {
             SportsList(
                 sports = LocalSportsDataProvider.getSportsData(),
                 onClick = {},
+            )
+        }
+    }
+}
+
+@Preview(heightDp = 600, widthDp = 960)
+@Composable
+fun SportsListAndDetailPreview() {
+    SportsTheme {
+        Surface {
+            SportsListAndDetail(
+                sports = LocalSportsDataProvider.getSportsData(),
+                onClick = {},
+                selectedSport = LocalSportsDataProvider.defaultSport,
+                onBackPressed = {}
             )
         }
     }
