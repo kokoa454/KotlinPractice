@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">MyCity</string>
+    <string name="back_button"> 戻る</string>
+
+    <string-array name="category_names">
+        <item>自然・観光</item>
+        <item>グルメ</item>
+        <item>ショッピング</item>
+        <item>音楽・文化</item>
+        <item>その他</item>
+    </string-array>
 </resources>
