@@ -22,14 +22,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.mycity.R
-import com.example.mycity.data.Category
+import com.example.mycity.data.CategoryData.categories
+import com.example.mycity.model.Category
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -118,6 +118,25 @@ fun CategoryListItem(
     }
 }
 
+@Composable
+fun CategoryList(
+    categories: List<Category>,
+    onItemClick: (Category) -> Unit,
+    modifier: Modifier = Modifier
+){
+    Column(
+        modifier = modifier
+    ) {
+        categories.forEach { category ->
+            CategoryListItem(
+                category = category,
+                onItemClick = onItemClick,
+                modifier = Modifier.padding(8.dp)
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun AppTopBarPreview(){
@@ -127,8 +146,18 @@ fun AppTopBarPreview(){
 @Preview
 @Composable
 fun CategoryListItemPreview(){
+    val category = categories.first()
     CategoryListItem(
-        category = Category(LocalContext.current.resources.getStringArray(R.array.category_names)[0],LocalContext.current.resources.getStringArray(R.array.category_numbers)[0], R.drawable.image1),
+        category = category,
+        onItemClick = {}
+    )
+}
+
+@Preview
+@Composable
+fun CategoryListPreview(){
+    CategoryList(
+        categories = categories,
         onItemClick = {}
     )
 }

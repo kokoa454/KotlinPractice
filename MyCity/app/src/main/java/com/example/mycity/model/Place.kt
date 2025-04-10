@@ -1,10 +1,9 @@
-package com.example.mycity.data
+package com.example.mycity.model
 
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 
-data class PlaceDetails(
+data class Place(
     @StringRes val name: Int,
-    @StringRes val description: Int,
     @DrawableRes val image: Int,
 )
