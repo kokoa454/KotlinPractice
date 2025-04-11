@@ -13,7 +13,7 @@ fun MyCityApp(
         topBar = { MyCityTopAppBar() },
     ){ innerPadding ->
         MyCityHomeScreen(
-            modifier = modifier.padding(innerPadding)
+            modifier = Modifier.padding(innerPadding)
         )
     }
 }
