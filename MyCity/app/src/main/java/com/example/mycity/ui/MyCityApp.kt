@@ -34,7 +34,7 @@ fun MyCityApp(
     ){ innerPadding ->
         CategoryList(
             categories = uiState.categories,
-            onItemClick = { /*TODO*/ },
+            onItemClick = { category -> viewModel.toPlaceList(category.name) },
             modifier = modifier.padding(innerPadding)
         )
     }
