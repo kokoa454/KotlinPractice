@@ -12,7 +12,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -33,13 +33,6 @@ import com.example.mycity.R
 import com.example.mycity.data.CategoryList.categories
 import com.example.mycity.model.Category
 
-@Composable
-fun MyCityHomeScreen(
-    modifier: Modifier = Modifier
-){
-
-}
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCityTopAppBar(
@@ -58,7 +51,7 @@ fun MyCityTopAppBar(
         navigationIcon = {
             if(canNavigateBack){
                 Icon(
-                    imageVector = Icons.Filled.ArrowBack,
+                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                     contentDescription = null
                 )
             }
@@ -70,7 +63,8 @@ fun MyCityTopAppBar(
 @Composable
 fun CategoryListItem(
     category: Category,
-    modifier: Modifier = Modifier
+    onClicked: (Category) -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ){
     Card(
         modifier = modifier
@@ -80,7 +74,9 @@ fun CategoryListItem(
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
-        onClick = { /*TODO*/}
+        onClick = {
+            onClicked(category)
+        }
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -115,7 +111,8 @@ fun CategoryListItem(
 @Composable
 fun CategoryList(
     categories: List<Category>,
-    modifier: Modifier = Modifier
+    onClicked: (Category) -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier.padding(24.dp)
 ){
     LazyColumn(
         modifier = modifier.fillMaxWidth()
@@ -123,6 +120,7 @@ fun CategoryList(
         items(categories.size) { index ->
             CategoryListItem(
                 category = categories[index],
+                onClicked = onClicked,
                 modifier = Modifier.padding(bottom = 16.dp)
             )
         }

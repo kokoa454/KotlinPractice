@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MyCity</string>
+    <string name="place">Place List</string>
+    <string name="place_details">Place Details</string>
 </resources>

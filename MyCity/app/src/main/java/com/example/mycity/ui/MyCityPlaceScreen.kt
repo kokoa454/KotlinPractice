@@ -1,5 +1,6 @@
 package com.example.mycity.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -22,7 +23,8 @@ import com.example.mycity.model.Place
 @Composable
 fun PlaceListItem(
     place: Place,
-    modifier: Modifier = Modifier
+    onClicked: () -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ){
     Card(
         modifier = modifier
@@ -52,7 +54,8 @@ fun PlaceListItem(
 fun PlaceList(
     places: List<Place>,
     type: String,
-    modifier: Modifier = Modifier
+    onClicked: () -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier.padding(16.dp)
 ){
     LazyColumn(
         modifier = modifier.fillMaxWidth()
@@ -61,6 +64,7 @@ fun PlaceList(
             if(places[index].type == type){
                 PlaceListItem(
                     place = places[index],
+                    onClicked = onClicked,
                     modifier = Modifier.padding(bottom = 16.dp)
                 )
             }
