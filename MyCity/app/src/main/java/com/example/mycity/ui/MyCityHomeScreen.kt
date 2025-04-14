@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -22,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.mycity.R
 import com.example.mycity.data.CategoryList.categories
 import com.example.mycity.model.Category
@@ -82,7 +85,24 @@ fun CategoryListItem(
         ){
             Text(
                 text = category.name,
-                style = MaterialTheme.typography.titleLarge
+                style = MaterialTheme.typography.titleLarge.copy(fontSize = 36.sp)
+            )
+        }
+    }
+}
+
+@Composable
+fun CategoryList(
+    categories: List<Category>,
+    modifier: Modifier = Modifier
+){
+    LazyColumn(
+        modifier = modifier.fillMaxWidth()
+    ) {
+        items(categories.size) { index ->
+            CategoryListItem(
+                category = categories[index],
+                modifier = Modifier.padding(bottom = 16.dp)
             )
         }
     }
@@ -99,5 +119,13 @@ fun MyCityTopAppBarPreview(){
 fun CategoryListItemPreview() {
     CategoryListItem(
         category = categories.first()
+    )
+}
+
+@Preview
+@Composable
+fun CategoryListPreview() {
+    CategoryList(
+        categories = categories
     )
 }
