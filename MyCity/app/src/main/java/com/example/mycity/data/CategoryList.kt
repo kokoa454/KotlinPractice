@@ -6,19 +6,19 @@ object CategoryList {
     val categories = listOf(
         Category(
             name = "観光",
-            number = 1
+            number = 4
         ),
         Category(
             name = "グルメ",
-            number = 1
+            number = 3
         ),
         Category(
             name = "音楽",
-            number = 1
+            number = 2
         ),
         Category(
             name = "その他",
-            number = 1
+            number = 2
         )
     )
 
