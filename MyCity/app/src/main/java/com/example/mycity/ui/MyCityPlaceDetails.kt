@@ -24,7 +24,10 @@ fun PlaceDetailsList(
     ){
         Text(
             text = place.name,
-            style = MaterialTheme.typography.titleLarge.copy(fontSize = 36.sp),
+            style = MaterialTheme.typography.titleLarge.copy(
+                fontSize = 36.sp,
+                lineHeight = 48.sp
+            ),
             modifier = Modifier
                 .fillMaxWidth()
                 .background(color = MaterialTheme.colorScheme.primaryContainer)
