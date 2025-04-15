@@ -44,11 +44,19 @@ fun MyCityNavHost(
             PlaceList(
                 places = places.filter { it.type == type },
                 type = type,
-                onClicked = {
-                    navController.navigate(MyCityScreen.PlaceDetails.name)
+                onClicked = { place ->
+                    navController.navigate("${MyCityScreen.PlaceDetails.name}/${place.name}")
                 }
             )
         }
-
+        composable(
+            route = "${MyCityScreen.PlaceDetails.name}/{name}",
+            arguments = listOf(navArgument("name") { type = NavType.StringType })
+            ){ backStackEntry ->
+            val name = backStackEntry.arguments?.getString("name") ?: ""
+            PlaceDetailsList(
+                place = places.first { it.name == name },
+            )
+        }
     }
 }

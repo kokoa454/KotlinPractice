@@ -23,7 +23,7 @@ import com.example.mycity.model.Place
 @Composable
 fun PlaceListItem(
     place: Place,
-    onClicked: () -> Unit = {},
+    onClicked: (Place) -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ){
     Card(
@@ -33,7 +33,10 @@ fun PlaceListItem(
         shape = MaterialTheme.shapes.medium,
         colors = CardDefaults.cardColors(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
-        )
+        ),
+        onClick = {
+            onClicked(place)
+        }
     ) {
         Box(
             contentAlignment = Alignment.Center,
@@ -54,7 +57,7 @@ fun PlaceListItem(
 fun PlaceList(
     places: List<Place>,
     type: String,
-    onClicked: () -> Unit = {},
+    onClicked: (Place) -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier.padding(16.dp)
 ){
     LazyColumn(

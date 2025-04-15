@@ -50,7 +50,7 @@ object PlaceList {
         ),
         Place(
             name = "浜松市動物園",
-            description = "コンパクトながら人気のある動物園。キ\nリンやライオン、レッサーパンダなどが見られる。",
+            description = "コンパクトながら人気のある動物園。\nキリンやライオン、レッサーパンダなどが見られる。",
             type = "その他"
         ),
         Place(

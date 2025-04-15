@@ -15,7 +15,7 @@ import com.example.mycity.model.Place
 import com.example.mycity.data.PlaceList.places
 
 @Composable
-fun PlaceDetails(
+fun PlaceDetailsList(
     place: Place,
     modifier: Modifier = Modifier
 ){
@@ -46,7 +46,7 @@ fun PlaceDetails(
 @Preview
 @Composable
 fun PlaceDetailsPreview(){
-    PlaceDetails(
-        place = places.first()
+    PlaceDetailsList(
+        place = places.first(),
     )
 }
