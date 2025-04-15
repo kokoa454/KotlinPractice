@@ -54,7 +54,7 @@ object PlaceList {
             type = "その他"
         ),
         Place(
-            name = "はままつフルーツパーク\n時之栖",
+            name = "フルーツパーク\n時之栖",
             description = "果物狩りやアスレチック、温泉施設もある家族向け大型レジャー施設。",
             type = "その他"
         )

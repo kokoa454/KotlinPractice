@@ -17,6 +17,7 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
@@ -36,8 +37,9 @@ import com.example.mycity.model.Category
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MyCityTopAppBar(
-    title: String = stringResource(R.string.app_name),
-    canNavigateBack: Boolean = false,
+    title: String,
+    canNavigateBack: Boolean,
+    navigateUp: () -> Unit,
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ){
     TopAppBar(
@@ -50,10 +52,14 @@ fun MyCityTopAppBar(
         ),
         navigationIcon = {
             if(canNavigateBack){
-                Icon(
-                    imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = null
-                )
+                IconButton(
+                    onClick = { navigateUp() }
+                ) {
+                    Icon(
+                        imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                        contentDescription = null
+                    )
+                }
             }
         },
         modifier = modifier
@@ -130,7 +136,11 @@ fun CategoryList(
 @Preview
 @Composable
 fun MyCityTopAppBarPreview(){
-    MyCityTopAppBar()
+    MyCityTopAppBar(
+        title = stringResource(R.string.app_name),
+        canNavigateBack = false,
+        navigateUp = {}
+    )
 }
 
 @Preview
