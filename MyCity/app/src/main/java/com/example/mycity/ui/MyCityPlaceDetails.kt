@@ -9,6 +9,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -51,11 +55,12 @@ fun PlaceDetailsList(
 @Composable
 fun ListAndDetails(
     places: List<Place>,
+    selectedPlace: Place,
     type: String,
-    onClicked: (Place) -> Unit = {},
     @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
 ){
-    val place = places.first { it.type == type }
+    var place by remember { mutableStateOf(selectedPlace) }
+
     Row(
         modifier = modifier
             .fillMaxWidth()
@@ -64,8 +69,11 @@ fun ListAndDetails(
         PlaceList(
             places = places,
             type = type,
-            onClicked = onClicked,
+            onClicked = { clickedPlace ->
+                place = clickedPlace
+            },
             modifier = Modifier
+                .padding(end = 16.dp)
                 .weight(2f)
         )
         PlaceDetailsList(
@@ -74,6 +82,7 @@ fun ListAndDetails(
         )
     }
 }
+
 
 @Preview
 @Composable
@@ -92,5 +101,6 @@ fun ListAndDetailsPreview() {
     ListAndDetails(
         places = places,
         type = "観光",
+        selectedPlace = places.first()
     )
 }

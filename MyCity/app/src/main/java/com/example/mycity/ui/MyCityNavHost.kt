@@ -75,12 +75,13 @@ fun MyCityNavHost(
                 arguments = listOf(navArgument("type") { type = NavType.StringType })
             ) { backStackEntry ->
                 val type = backStackEntry.arguments?.getString("type") ?: ""
+                val filteredPlaces = places.filter { it.type == type }
+                val selectedPlace = filteredPlaces.find { it.name == navController.currentBackStackEntry?.arguments?.getString("name") } ?: filteredPlaces.first()
+
                 ListAndDetails(
-                    places = places.filter { it.type == type },
-                    type = type,
-                    onClicked = { place ->
-                        navController.navigate("${MyCityScreen.PlaceDetails.name}/${place.name}")
-                    }
+                    places = filteredPlaces,
+                    selectedPlace = selectedPlace,
+                    type = type
                 )
             }
         }
