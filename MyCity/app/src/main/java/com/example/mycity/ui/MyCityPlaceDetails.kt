@@ -1,7 +1,9 @@
 package com.example.mycity.ui
 
+import android.annotation.SuppressLint
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
@@ -46,10 +48,49 @@ fun PlaceDetailsList(
     }
 }
 
+@Composable
+fun ListAndDetails(
+    places: List<Place>,
+    type: String,
+    onClicked: (Place) -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier
+){
+    val place = places.first { it.type == type }
+    Row(
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(16.dp)
+    ){
+        PlaceList(
+            places = places,
+            type = type,
+            onClicked = onClicked,
+            modifier = Modifier
+                .weight(2f)
+        )
+        PlaceDetailsList(
+            place = place,
+            modifier = Modifier.weight(3f)
+        )
+    }
+}
+
 @Preview
 @Composable
 fun PlaceDetailsPreview(){
     PlaceDetailsList(
         place = places.first(),
+    )
+}
+
+@Preview(
+    widthDp = 600,
+    heightDp = 400
+)
+@Composable
+fun ListAndDetailsPreview() {
+    ListAndDetails(
+        places = places,
+        type = "観光",
     )
 }

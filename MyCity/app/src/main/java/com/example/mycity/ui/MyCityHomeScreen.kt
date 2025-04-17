@@ -11,6 +11,8 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.grid.GridCells
+import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Card
@@ -133,6 +135,28 @@ fun CategoryList(
     }
 }
 
+@Composable
+fun CategoryListForExpanded(
+    categories: List<Category>,
+    onClicked: (Category) -> Unit = {},
+    @SuppressLint("ModifierParameter") modifier: Modifier = Modifier.padding(16.dp)
+){
+    LazyVerticalGrid(
+        columns = GridCells.Fixed(4),
+        horizontalArrangement = Arrangement.spacedBy(16.dp),
+        verticalArrangement = Arrangement.spacedBy(16.dp),
+        modifier = modifier.fillMaxWidth()
+    ){
+        items(categories.size){ index ->
+            CategoryListItem(
+                category = categories[index],
+                onClicked = onClicked,
+                modifier = Modifier.padding(bottom = 16.dp)
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun MyCityTopAppBarPreview(){
@@ -155,6 +179,14 @@ fun CategoryListItemPreview() {
 @Composable
 fun CategoryListPreview() {
     CategoryList(
+        categories = categories
+    )
+}
+
+@Preview
+@Composable
+fun CategoryListForExpandedPreview() {
+    CategoryListForExpanded(
         categories = categories
     )
 }

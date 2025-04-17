@@ -11,6 +11,7 @@ import com.example.mycity.data.CategoryList.categories
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.mycity.data.PlaceList.places
+import com.example.mycity.ui.utils.MyCityContentType
 
 enum class MyCityScreen(@StringRes val title: Int) {
     Start(title = R.string.app_name),
@@ -21,6 +22,7 @@ enum class MyCityScreen(@StringRes val title: Int) {
 @Composable
 fun MyCityNavHost(
     navController: NavHostController,
+    contentType: MyCityContentType,
     modifier: Modifier = Modifier
 ){
     NavHost(
@@ -28,35 +30,59 @@ fun MyCityNavHost(
         startDestination = MyCityScreen.Start.name,
         modifier = modifier
     ){
-        composable(route = MyCityScreen.Start.name){
-            CategoryList(
-                categories = categories,
-                onClicked = { category ->
-                    navController.navigate("${MyCityScreen.Place.name}/${category.name}")
-                }
-            )
-        }
-        composable(
-            route = "${MyCityScreen.Place.name}/{type}",
-            arguments = listOf(navArgument("type") { type = NavType.StringType })
-        ) { backStackEntry ->
-            val type = backStackEntry.arguments?.getString("type") ?: ""
-            PlaceList(
-                places = places.filter { it.type == type },
-                type = type,
-                onClicked = { place ->
-                    navController.navigate("${MyCityScreen.PlaceDetails.name}/${place.name}")
-                }
-            )
-        }
-        composable(
-            route = "${MyCityScreen.PlaceDetails.name}/{name}",
-            arguments = listOf(navArgument("name") { type = NavType.StringType })
+        if(contentType == MyCityContentType.LIST_ONLY){
+            composable(route = MyCityScreen.Start.name){
+                CategoryList(
+                    categories = categories,
+                    onClicked = { category ->
+                        navController.navigate("${MyCityScreen.Place.name}/${category.name}")
+                    }
+                )
+            }
+            composable(
+                route = "${MyCityScreen.Place.name}/{type}",
+                arguments = listOf(navArgument("type") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val type = backStackEntry.arguments?.getString("type") ?: ""
+                PlaceList(
+                    places = places.filter { it.type == type },
+                    type = type,
+                    onClicked = { place ->
+                        navController.navigate("${MyCityScreen.PlaceDetails.name}/${place.name}")
+                    }
+                )
+            }
+            composable(
+                route = "${MyCityScreen.PlaceDetails.name}/{name}",
+                arguments = listOf(navArgument("name") { type = NavType.StringType })
             ){ backStackEntry ->
-            val name = backStackEntry.arguments?.getString("name") ?: ""
-            PlaceDetailsList(
-                place = places.first { it.name == name },
-            )
+                val name = backStackEntry.arguments?.getString("name") ?: ""
+                PlaceDetailsList(
+                    place = places.first { it.name == name },
+                )
+            }
+        } else {
+            composable(route = MyCityScreen.Start.name){
+                CategoryListForExpanded(
+                    categories = categories,
+                    onClicked = { category ->
+                        navController.navigate("${MyCityScreen.Place.name}/${category.name}")
+                    }
+                )
+            }
+            composable(
+                route = "${MyCityScreen.Place.name}/{type}",
+                arguments = listOf(navArgument("type") { type = NavType.StringType })
+            ) { backStackEntry ->
+                val type = backStackEntry.arguments?.getString("type") ?: ""
+                ListAndDetails(
+                    places = places.filter { it.type == type },
+                    type = type,
+                    onClicked = { place ->
+                        navController.navigate("${MyCityScreen.PlaceDetails.name}/${place.name}")
+                    }
+                )
+            }
         }
     }
 }
