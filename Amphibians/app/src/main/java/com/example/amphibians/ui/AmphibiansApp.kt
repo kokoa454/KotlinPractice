@@ -1,5 +1,6 @@
 package com.example.amphibians.ui
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -24,6 +25,7 @@ fun AmphibiansApp() {
         topBar = { AmphibiansTopAppBar(scrollBehavior = scrollBehavior) }
     ) { innerPadding ->
         Surface(
+            color = MaterialTheme.colorScheme.background,
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
@@ -44,9 +46,10 @@ fun AmphibiansTopAppBar(
         title = {
             Text(
                 text = "Amphibians",
-                style = MaterialTheme.typography.headlineSmall
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onPrimaryContainer
             )
         },
-        modifier = modifier
+        modifier = modifier.background(MaterialTheme.colorScheme.primaryContainer)
     )
 }

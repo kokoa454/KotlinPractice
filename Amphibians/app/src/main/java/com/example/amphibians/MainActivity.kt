@@ -12,7 +12,9 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            AmphibiansTheme {
+            AmphibiansTheme(
+                dynamicColor = false
+            ) {
                 AmphibiansApp()
             }
         }
