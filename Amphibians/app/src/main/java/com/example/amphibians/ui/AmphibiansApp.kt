@@ -30,7 +30,7 @@ fun AmphibiansApp() {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            //AmphibiansHomeScreen()
+            //HomeScreen()
         }
     }
 }
