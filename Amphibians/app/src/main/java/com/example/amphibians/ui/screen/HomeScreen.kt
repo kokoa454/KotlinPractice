@@ -3,6 +3,7 @@ package com.example.amphibians.ui.screen
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -52,6 +53,10 @@ fun AmphibiansCard(
         Column{
             Row(
                 verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(56.dp)
+                    .padding(4.dp)
             ) {
                 Text(
                     text = amphibiansPhoto.name,
@@ -74,13 +79,16 @@ fun AmphibiansCard(
                 contentDescription = amphibiansPhoto.name,
                 contentScale = ContentScale.Crop,
                 placeholder = painterResource(R.drawable.loading),
-                modifier = Modifier.fillMaxWidth()
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(194.dp)
             )
             Text(
                 text = amphibiansPhoto.description,
                 style = MaterialTheme.typography.bodyLarge,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
+                    .padding(8.dp)
             )
         }
     }
