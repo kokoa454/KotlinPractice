@@ -1,10 +1,13 @@
 package com.example.amphibians.ui.screen
 
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
@@ -94,6 +97,30 @@ fun AmphibiansCard(
     }
 }
 
+@Composable
+fun AmphibiansList(
+    amphibiansPhoto: List<AmphibiansPhoto>,
+    modifier: Modifier = Modifier
+){
+    LazyColumn (
+        modifier = modifier
+            .fillMaxWidth()
+            .padding(4.dp),
+        contentPadding = PaddingValues(4.dp)
+    ) {
+        items(
+            items = amphibiansPhoto,
+            key = { photo -> photo.name }
+        ) { photo ->
+            AmphibiansCard(
+                amphibiansPhoto = photo,
+                modifier = Modifier
+                    .padding(4.dp)
+            )
+        }
+    }
+}
+
 @Preview
 @Composable
 fun AmphibiansCardPreview(){
@@ -103,6 +130,27 @@ fun AmphibiansCardPreview(){
             type = "type",
             description = "description",
             imgSrc = "imgSrc"
+        )
+    )
+}
+
+@Preview
+@Composable
+fun AmphibiansListPreview(){
+    AmphibiansList(
+        amphibiansPhoto = listOf(
+            AmphibiansPhoto(
+                name = "name1",
+                type = "type1",
+                description = "description1",
+                imgSrc = "imgSrc1"
+            ),
+            AmphibiansPhoto(
+                name = "name2",
+                type = "type2",
+                description = "description2",
+                imgSrc = "imgSrc2"
+            )
         )
     )
 }
