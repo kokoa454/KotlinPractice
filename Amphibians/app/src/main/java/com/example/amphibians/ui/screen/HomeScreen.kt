@@ -1,5 +1,6 @@
 package com.example.amphibians.ui.screen
 
+import android.widget.FrameLayout
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -13,13 +14,19 @@ import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
+import androidx.media3.common.MediaItem
+import androidx.media3.exoplayer.ExoPlayer
+import androidx.media3.ui.PlayerView
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.example.amphibians.R
@@ -30,11 +37,11 @@ fun HomeScreen(
     amphibiansUiState: AmphibiansUiState,
     modifier: Modifier = Modifier
 ){
-//    when(amphibiansUiState){
-//        is AmphibiansUiState.Loading -> /*Todo*/
-//        is AmphibiansUiState.Success -> /*Todo*/
-//        is AmphibiansUiState.Error -> /*Todo*/
-//    }
+    when(amphibiansUiState){
+        is AmphibiansUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxWidth())
+        is AmphibiansUiState.Success -> AmphibiansList(amphibiansPhoto = amphibiansUiState.amphibians, modifier = modifier)
+        is AmphibiansUiState.Error -> ErrorScreen(modifier = modifier.fillMaxWidth())
+    }
 }
 
 @Composable
@@ -119,6 +126,66 @@ fun AmphibiansList(
             )
         }
     }
+}
+
+@Composable
+fun LoadingScreen(
+    modifier: Modifier = Modifier
+){
+    val context = LocalContext.current
+    val exoPlayer = remember{
+        ExoPlayer.Builder(context).build().apply {
+            setMediaItem(MediaItem.fromUri("android.resource://${context.packageName}/${R.raw.loading}"))
+            repeatMode = ExoPlayer.REPEAT_MODE_OFF
+            playWhenReady = true
+            prepare()
+        }
+    }
+    VideoPlayer(exoPlayer = exoPlayer)
+    Text(
+        text = stringResource(R.string.loading),
+        modifier = modifier.padding(16.dp)
+    )
+}
+
+@Composable
+fun ErrorScreen(
+    modifier: Modifier = Modifier
+){
+    val context = LocalContext.current
+    val exoPlayer = remember{
+        ExoPlayer.Builder(context).build().apply {
+            setMediaItem(MediaItem.fromUri("android.resource://${context.packageName}/${R.raw.error}"))
+            repeatMode = ExoPlayer.REPEAT_MODE_OFF
+            playWhenReady = true
+            prepare()
+        }
+    }
+    VideoPlayer(exoPlayer = exoPlayer)
+    Text(
+        text = stringResource(R.string.loading_failed),
+        modifier = modifier.padding(16.dp)
+    )
+}
+
+@Composable
+fun VideoPlayer(
+    exoPlayer: ExoPlayer,
+    modifier: Modifier = Modifier
+){
+    AndroidView(
+        factory = { context ->
+            PlayerView(context).apply {
+                player = exoPlayer
+                useController = false
+                layoutParams = FrameLayout.LayoutParams(
+                    FrameLayout.LayoutParams.MATCH_PARENT,
+                    FrameLayout.LayoutParams.MATCH_PARENT
+                )
+            }
+        },
+        modifier = modifier
+    )
 }
 
 @Preview
