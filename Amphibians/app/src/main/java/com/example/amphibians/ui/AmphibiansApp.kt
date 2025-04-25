@@ -14,6 +14,9 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.amphibians.ui.screen.AmphibiansViewModel
+import com.example.amphibians.ui.screen.HomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,7 +33,12 @@ fun AmphibiansApp() {
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-            //HomeScreen()
+            val amphibiansViewModel: AmphibiansViewModel = viewModel(
+                factory = AmphibiansViewModel.Factory
+            )
+            HomeScreen(
+                amphibiansUiState = amphibiansViewModel.amphibiansUiState
+            )
         }
     }
 }
