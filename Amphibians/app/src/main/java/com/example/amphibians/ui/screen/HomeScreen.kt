@@ -61,26 +61,14 @@ fun AmphibiansCard(
         border = CardDefaults.outlinedCardBorder(),
     ) {
         Column{
-            Row(
-                verticalAlignment = Alignment.CenterVertically,
+            Text(
+                text = amphibiansPhoto.name + " (" + amphibiansPhoto.type + ")",
+                style = MaterialTheme.typography.headlineMedium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(56.dp)
-                    .padding(4.dp)
-            ) {
-                Text(
-                    text = amphibiansPhoto.name,
-                    style = MaterialTheme.typography.headlineMedium,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier.padding(end = 8.dp),
-                )
-                Text(
-                    text = amphibiansPhoto.type,
-                    style = MaterialTheme.typography.headlineSmall,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant,
-                    modifier = Modifier,
-                )
-            }
+                    .padding(8.dp)
+            )
             AsyncImage(
                 model = ImageRequest.Builder(context = LocalContext.current)
                     .data(amphibiansPhoto.imgSrc)
@@ -91,7 +79,6 @@ fun AmphibiansCard(
                 placeholder = painterResource(R.drawable.loading),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(194.dp)
             )
             Text(
                 text = amphibiansPhoto.description,
