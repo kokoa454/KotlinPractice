@@ -1,9 +1,14 @@
 package com.example.amphibians.ui.screen
 
+import android.os.Build.VERSION.SDK_INT
 import android.widget.FrameLayout
+import androidx.annotation.DrawableRes
+import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
@@ -17,6 +22,7 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -26,8 +32,13 @@ import androidx.compose.ui.viewinterop.AndroidView
 import androidx.media3.common.MediaItem
 import androidx.media3.exoplayer.ExoPlayer
 import androidx.media3.ui.PlayerView
+import coil.ImageLoader
 import coil.compose.AsyncImage
+import coil.compose.rememberAsyncImagePainter
+import coil.decode.GifDecoder
+import coil.decode.ImageDecoderDecoder
 import coil.request.ImageRequest
+import coil.size.Size.Companion.ORIGINAL
 import com.example.amphibians.R
 import com.example.amphibians.ui.model.AmphibiansPhoto
 
@@ -80,15 +91,7 @@ fun AmphibiansCard(
             when (cardState) {
                 AmphibiansCardState.LOADING -> {
                     val context = LocalContext.current
-
-                    val exoPlayer = remember {
-                        ExoPlayer.Builder(context).build().apply {
-                            setMediaItem(MediaItem.fromUri("android.resource://${context.packageName}/${R.raw.loading}"))
-                            repeatMode = ExoPlayer.REPEAT_MODE_ALL
-                            playWhenReady = true
-                            prepare()
-                        }
-                    }
+                    LoadingScreen()
                     AsyncImage(
                         model = ImageRequest.Builder(context = LocalContext.current)
                             .data(amphibiansPhoto.imgSrc)
@@ -100,7 +103,6 @@ fun AmphibiansCard(
                         contentScale = ContentScale.Crop,
                         modifier = Modifier.fillMaxWidth()
                     )
-                    VideoPlayer(exoPlayer)
                 }
                 AmphibiansCardState.SUCCESS -> {
                     AsyncImage(
@@ -114,16 +116,7 @@ fun AmphibiansCard(
                     )
                 }
                 AmphibiansCardState.ERROR -> {
-                    val context = LocalContext.current
-                    val exoPlayer = remember {
-                        ExoPlayer.Builder(context).build().apply {
-                            setMediaItem(MediaItem.fromUri("android.resource://${context.packageName}/${R.raw.error}"))
-                            repeatMode = ExoPlayer.REPEAT_MODE_ONE
-                            playWhenReady = true
-                            prepare()
-                        }
-                    }
-                    VideoPlayer(exoPlayer)
+                    ErrorScreen()
                 }
             }
 
@@ -166,57 +159,60 @@ fun AmphibiansList(
 fun LoadingScreen(
     modifier: Modifier = Modifier
 ){
-    val context = LocalContext.current
-    val exoPlayer = remember{
-        ExoPlayer.Builder(context).build().apply {
-            setMediaItem(MediaItem.fromUri("android.resource://${context.packageName}/${R.raw.loading}"))
-            repeatMode = ExoPlayer.REPEAT_MODE_ALL
-            playWhenReady = true
-            prepare()
-        }
+    Box(
+        modifier = modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ){
+        GIFImage(
+            gifImage = R.drawable.loading,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
     }
-    VideoPlayer(exoPlayer = exoPlayer)
 }
 
 @Composable
 fun ErrorScreen(
     modifier: Modifier = Modifier
 ){
-    val context = LocalContext.current
-    val exoPlayer = remember{
-        ExoPlayer.Builder(context).build().apply {
-            setMediaItem(MediaItem.fromUri("android.resource://${context.packageName}/${R.raw.error}"))
-            repeatMode = ExoPlayer.REPEAT_MODE_OFF
-            playWhenReady = true
-            prepare()
-        }
+    Box(
+        modifier = modifier.fillMaxWidth(),
+        contentAlignment = Alignment.Center
+    ){
+        GIFImage(
+            gifImage = R.drawable.error,
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(8.dp)
+        )
     }
-    VideoPlayer(exoPlayer = exoPlayer)
 }
-
 @Composable
-fun VideoPlayer(
-    exoPlayer: ExoPlayer,
-    modifier: Modifier = Modifier
-){
-    AndroidView(
-        factory = { context ->
-            PlayerView(context).apply {
-                player = exoPlayer
-                useController = false
-                layoutParams = FrameLayout.LayoutParams(
-                    FrameLayout.LayoutParams.MATCH_PARENT,
-                    FrameLayout.LayoutParams.MATCH_PARENT
-                )
+fun GIFImage(
+    modifier: Modifier = Modifier,
+    @DrawableRes gifImage: Int,
+) {
+    val context = LocalContext.current
+    val imageLoader = ImageLoader.Builder(context)
+        .components {
+            if (SDK_INT >= 28) {
+                add(ImageDecoderDecoder.Factory())
+            } else {
+                add(GifDecoder.Factory())
             }
-        },
-        modifier = modifier.fillMaxWidth()
-    )
-    DisposableEffect(exoPlayer) {
-        onDispose {
-            exoPlayer.release()
         }
-    }
+        .build()
+    Image(
+        painter = rememberAsyncImagePainter(
+            ImageRequest.Builder(context).data(data = gifImage).apply(block = {
+                size(ORIGINAL)
+            }).build(), imageLoader = imageLoader
+        ),
+        contentDescription = null,
+        contentScale = ContentScale.Crop,
+        modifier = modifier,
+    )
 }
 
 @Preview
