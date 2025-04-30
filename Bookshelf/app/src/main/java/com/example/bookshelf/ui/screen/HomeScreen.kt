@@ -16,6 +16,10 @@ import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
@@ -43,11 +47,20 @@ fun HomeScreen(
 //    }
 }
 
+enum class BookCardState {
+    LOADING,
+    ERROR,
+    SUCCESS
+}
+
 @Composable
 fun BookCard(
     bookPhoto: BookPhoto,
     modifier: Modifier = Modifier
 ){
+    var cardState by remember { mutableStateOf(BookCardState.LOADING) }
+
+
     Card(
         modifier = modifier.fillMaxWidth(),
         shape = MaterialTheme.shapes.medium,
@@ -57,15 +70,36 @@ fun BookCard(
         ),
         border = CardDefaults.outlinedCardBorder(),
     ){
-        AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(bookPhoto.imgSrc)
-                .crossfade(true)
-                .build(),
-            contentDescription = bookPhoto.id,
-            contentScale = ContentScale.Crop,
-            modifier = Modifier.fillMaxWidth()
-        )
+        when (cardState) {
+            BookCardState.LOADING -> {
+                LoadingScreen()
+                AsyncImage(
+                    model = ImageRequest.Builder(context = LocalContext.current)
+                        .data(bookPhoto.imgSrc)
+                        .crossfade(true)
+                        .build(),
+                    onSuccess = { cardState = BookCardState.SUCCESS},
+                    onError = { cardState = BookCardState.ERROR },
+                    contentDescription = null,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            BookCardState.SUCCESS -> {
+                AsyncImage(
+                    model = ImageRequest.Builder(LocalContext.current)
+                        .data(bookPhoto.imgSrc)
+                        .crossfade(true)
+                        .build(),
+                    contentDescription = bookPhoto.id,
+                    contentScale = ContentScale.Crop,
+                    modifier = Modifier.fillMaxWidth()
+                )
+            }
+            BookCardState.ERROR -> {
+                ErrorScreen()
+            }
+        }
     }
 }
 
