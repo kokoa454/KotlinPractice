@@ -1,6 +1,7 @@
 package com.example.bookshelf.ui.screen
 
 import android.os.Build.VERSION.SDK_INT
+import android.util.Log
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -52,14 +53,14 @@ enum class BookCardState {
     ERROR,
     SUCCESS
 }
-
 @Composable
 fun BookCard(
     bookPhoto: BookPhoto,
     modifier: Modifier = Modifier
-){
+) {
     var cardState by remember { mutableStateOf(BookCardState.LOADING) }
 
+    val imgSrc = bookPhoto.imgSrc.replace("http://", "https://")
 
     Card(
         modifier = modifier.fillMaxWidth(),
@@ -69,39 +70,41 @@ fun BookCard(
             containerColor = MaterialTheme.colorScheme.surfaceVariant
         ),
         border = CardDefaults.outlinedCardBorder(),
-    ){
-        when (cardState) {
-            BookCardState.LOADING -> {
-                LoadingScreen()
-                AsyncImage(
-                    model = ImageRequest.Builder(context = LocalContext.current)
-                        .data(bookPhoto.imgSrc)
-                        .crossfade(true)
-                        .build(),
-                    onSuccess = { cardState = BookCardState.SUCCESS},
-                    onError = { cardState = BookCardState.ERROR },
-                    contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxWidth()
-                )
+    ) {
+        Box(
+            modifier = Modifier.fillMaxWidth(),
+            contentAlignment = Alignment.Center
+        ) {
+            when (cardState) {
+                BookCardState.LOADING -> LoadingScreen()
+                BookCardState.ERROR -> ErrorScreen()
+                else -> {} //when success
             }
-            BookCardState.SUCCESS -> {
-                AsyncImage(
-                    model = ImageRequest.Builder(LocalContext.current)
-                        .data(bookPhoto.imgSrc)
-                        .crossfade(true)
-                        .build(),
-                    contentDescription = bookPhoto.id,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier.fillMaxWidth()
-                )
-            }
-            BookCardState.ERROR -> {
-                ErrorScreen()
-            }
+
+            AsyncImage(
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(imgSrc)
+                    .crossfade(true)
+                    .addHeader("User-Agent", "Mozilla/5.0")
+                    .build(),
+                onSuccess = {
+                    Log.d("BookCard", "Image loaded successfully")
+                    cardState = BookCardState.SUCCESS
+                },
+                onError = {
+                    Log.d("BookCard", "Image load failed")
+                    cardState = BookCardState.ERROR
+                },
+                contentDescription = bookPhoto.id,
+                contentScale = ContentScale.Crop,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .aspectRatio(3f / 4f)
+            )
         }
     }
 }
+
 
 @Composable
 fun BookList(
@@ -116,13 +119,12 @@ fun BookList(
         items(
             items = books,
             key = { book -> book.id }
-        ){
-            book -> BookCard(
-                bookPhoto = book,
-                modifier = modifier
-                    .padding(4.dp)
-                    .fillMaxWidth()
-                    .aspectRatio(1.5f)
+        ){ book -> BookCard(
+            bookPhoto = book,
+            modifier = modifier
+                .padding(4.dp)
+                .fillMaxWidth()
+                .aspectRatio(3f / 4f)
             )
         }
     }
