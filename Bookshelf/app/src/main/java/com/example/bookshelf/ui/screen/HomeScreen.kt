@@ -37,14 +37,14 @@ import com.example.bookshelf.ui.model.BookPhoto
 
 @Composable
 fun HomeScreen(
-    //bookshelfUiState: BookshelfUiState,
+    bookshelfUiState: BookshelfUiState,
     modifier: Modifier = Modifier
 ) {
-//    when(bookshelfUiState){
-//        is BookshelfUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
-//        is BookshelfUiState.Success -> BookList(bookshelfUiState.bookList, modifier)
-//        is BookshelfUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
-//    }
+    when(bookshelfUiState){
+        is BookshelfUiState.Loading -> LoadingScreen(modifier = modifier.fillMaxSize())
+        is BookshelfUiState.Success -> BookList(bookshelfUiState.bookList, modifier)
+        is BookshelfUiState.Error -> ErrorScreen(modifier = modifier.fillMaxSize())
+    }
 }
 
 enum class BookCardState {

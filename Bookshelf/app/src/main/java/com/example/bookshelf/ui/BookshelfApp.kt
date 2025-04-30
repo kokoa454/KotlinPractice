@@ -14,6 +14,9 @@ import androidx.compose.material3.TopAppBarScrollBehavior
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.bookshelf.ui.screen.BookshelfViewModel
+import com.example.bookshelf.ui.screen.HomeScreen
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -30,12 +33,12 @@ fun BookshelfApp(){
                 .fillMaxSize()
                 .padding(innerPadding)
         ) {
-//            val bookshelfViewModel: BookshelfViewModel = viewModel(
-//                factory = BookshelfViewModel.Factory
-//            )
-//            HomeScreen(
-//                bookshelfUiState = bookshelfViewModel.bookshelfUiState
-//            )
+            val bookshelfViewModel: BookshelfViewModel = viewModel(
+                factory = BookshelfViewModel.Factory
+            )
+            HomeScreen(
+                bookshelfUiState = bookshelfViewModel.bookshelfUiState
+            )
         }
     }
 }
