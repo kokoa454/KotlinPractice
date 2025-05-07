@@ -38,7 +38,10 @@ class ItemDetailsViewModel(
     val uiState: StateFlow<ItemDetailsUiState> = itemsRepository.getItemStream(itemId)
         .filterNotNull()
         .map{
-            ItemDetailsUiState(itemDetails = it.toItemDetails())
+            ItemDetailsUiState(
+                outOfStock = it.quantity <= 0,
+                itemDetails = it.toItemDetails()
+            )
         }
         .stateIn(
             scope = viewModelScope,
